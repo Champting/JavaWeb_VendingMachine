@@ -22,9 +22,11 @@
 		formData.append('action', 'addCartGoods');
 		formData.append('goodsID', goodsID);
 		formData.append('buyQuantity', buyQuantity);
+		
 		// 送出商品加入購物車請求
 		const
 		request = new XMLHttpRequest();
+		alert("已將商品加入購物車");
 		request.open("POST", "MemberAction.do");
 		request.send(formData);
 	}
