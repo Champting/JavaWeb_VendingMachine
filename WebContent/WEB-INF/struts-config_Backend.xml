@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="goodsbean" type="com.training.formbean.GoodsBean"/>
+		<form-bean name="searchForm" type="com.training.formbean.SearchForm"/>
+	</form-beans>
+    <action-mappings>
+        <action path="/BackendAction" type="com.training.action.BackendAction" parameter="action"
+        		name="goodsbean">
+            <forward name="SearchGoods" path="/BackendSearch.do?action=searchGoodsList"/>
+            <forward name="GoodsList" path="/BackendAction.do?action=goodsListView" redirect="true"/>
+            <forward name="GoodsListView" path="/WEB-INF/Backend/VM_Backend_GoodsList.jsp"/>
+            
+            <forward name="GoodsCreate" path="/BackendAction.do?action=goodsCreateView" redirect="true"/>
+            <forward name="GoodsCreateView" path="/WEB-INF/Backend/VM_Backend_GoodsCreate.jsp"/>
+            
+            <forward name="GoodsReplenishment" path="/BackendAction.do?action=goodsReplenishmentView" redirect="true"/>
+            <forward name="GoodsReplenishmentView" path="/WEB-INF/Backend/VM_Backend_GoodsReplenishment.jsp"/>
+            
+            <forward name="GoodsSaleReport" path="/WEB-INF/Backend/VM_Backend_GoodsSaleReport.jsp"/>
+<!--             <forward name="GoodsSaleReport" path="/BackendAction.do?action=goodsSaleReportView" redirect="true"/> -->
+            <forward name="GoodsSaleReportView" path="/BackendAction.do?action=goodsSaleReportView" redirect="true"/>
+            <!-- view只有點進去salesReort用 -->
+            
+            <forward name="Frontend" path="/FrontendAction.do?action=searchGoods"/>
+        </action>
+        <action path="/BackendSearch" type="com.training.action.BackendAction" parameter="action"
+        		name="searchForm">
+            <forward name="GoodsListView" path="/WEB-INF/Backend/VM_Backend_GoodsList.jsp"/>
+            <forward name="SearchGoods" path="/BackendSearch.do?action=searchGoodsList"/>
+            <!-- <forward name="GoodsList_RD" path=" " redirect="true"/> -->
+            <forward name="GoodsList" path="/WEB-INF/Backend/VM_Backend_GoodsList.jsp"/>
+        </action>
+    </action-mappings>
+</struts-config>

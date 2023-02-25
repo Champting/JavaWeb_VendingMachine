@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+    <form-beans>
+		<form-bean name="goodsOrderForm" type="com.training.formbean.GoodsOrderForm"/>
+	</form-beans>
+    <action-mappings>
+        <action path="/FrontendAction" type="com.training.action.FrontendAction" parameter="action">
+            <forward name="VendingMachine_RD" path="/FrontendAction.do?action=vendingMachineView" 
+            	redirect="true"/>
+            <forward name="VendingMachine" path="/WEB-INF/Frontend/VendingMachineCart.jsp"/>
+            <forward name="Backend" path="/BackendAction.do?action=queryAllGoods" redirect="true"/>
+            <forward name="Cart" path="/WEB-INF/Frontend/InCart.jsp"/>
+            <forward name="Cart_RD" path="/MemberAction.do?action=queryCartGoods" redirect="true"/>
+        </action>
+        
+        <action path="/LoginAction" type="com.training.action.LoginAction" parameter="action">
+        	<forward name="Success" path="/LoginAction.do?action=loginRedirect" redirect="true"/>
+            <forward name="Fail" path="/Login.jsp"/>
+            <forward name="Frontend" path="/FrontendAction.do?action=searchGoods"/>
+        </action>
+        
+        <action path="/MemberAction" type="com.training.action.MemberAction" parameter="action" name="goodsOrderForm">
+            <forward name="VendingMachine_RD" path="/FrontendAction.do?action=vendingMachineView" 
+            	redirect="true"/>
+            <forward name="VendingMachine" path="/WEB-INF/Frontend/VendingMachineCart.jsp"/>
+            <forward name="Cart" path="/WEB-INF/Frontend/InCart.jsp"/>
+        </action>
+        
+        
+    </action-mappings>
+</struts-config>
