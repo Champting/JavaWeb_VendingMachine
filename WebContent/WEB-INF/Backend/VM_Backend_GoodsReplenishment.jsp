@@ -29,6 +29,9 @@
 						$("#idStatus").val(goodsInfo.status).change();
 					}
 				});
+			}else{
+				$("#idPrice").val("");
+				$("#idStatus").val('0').change();
 			}
 
 // 			  error: function(error) { // 請求發生錯誤時執行函式

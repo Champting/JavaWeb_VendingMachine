@@ -1,6 +1,7 @@
 package com.training.action;
 
 //import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,12 +17,15 @@ import java.util.Map;
 import java.util.Set;
 
 
+
 //import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 //import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -43,15 +47,11 @@ public class MemberAction extends DispatchAction{
 		GoodsOrderForm order = (GoodsOrderForm) form;
 		String goodsID = order.getGoodsID();
 		String buyQuantity = order.getBuyQuantity();
-		
-//		String goodsID = request.getParameter("goodsID");
-//		String buyQuantity = request.getParameter("buyQuantity");		
+			
 		System.out.println("goodsID:" + goodsID);
 		System.out.println("buyQuantity:" + buyQuantity);	
 		
-		if(Integer.parseInt(buyQuantity)<=0){
-			return mapping.findForward("VendingMachine_RD");
-		}
+
 		
 		// 查詢資料庫商品並且加入購物車
 		Goods goods = frontendDao.queryBuyGoods(new BigDecimal(goodsID)); 
@@ -70,14 +70,37 @@ public class MemberAction extends DispatchAction{
 		}else{
 			session.setAttribute("cartGoods" , cartGoods);
 		}
-		System.out.println("已將 "+goods.getGoodsName()+" "+cartGoods.get(goods)+"個 加入購物車");
-		return mapping.findForward("VendingMachine_RD");
+//		System.out.println("已將 "+goods.getGoodsName()+" "+cartGoods.get(goods)+"個 加入購物車");
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		out.println("{\"goodsName\" : \""+ goods.getGoodsName() +"\"}");
+		out.flush();
+		out.close();
+		
+		return null;
+//		return mapping.findForward("VendingMachine_RD");
 	}
+
 	
-//	public ActionForward toCart(ActionMapping mapping, ActionForm form, 
-//			HttpServletRequest request, HttpServletResponse response) throws Exception{
-//		return mapping.findForward("Cart");
-//	}
+	public ActionForward queryCartSize(ActionMapping mapping, ActionForm form, 
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		HttpSession session = request.getSession();
+		int cartSize =0;
+		if(null!=session.getAttribute("cartGoods")){
+			cartSize = ((Map<Goods, Integer>)session.getAttribute("cartGoods")).size();
+		}
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		out.println("{\"cartSize\" : "+ cartSize +"}");
+		out.flush();
+		out.close();
+		
+		return null;
+	}
 	
 	public ActionForward queryCartGoods(ActionMapping mapping, ActionForm form, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -111,17 +134,13 @@ public class MemberAction extends DispatchAction{
 		session.setAttribute("cartGoods",reQueryCart);
 	}
 	
+	// 清空購物車
 	public ActionForward clearCartGoods(ActionMapping mapping, ActionForm form, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
-		// 清空購物車
-		clearCartGoods(request);
-//		System.out.println("已清空購物車");
+		HttpSession session = request.getSession();
+		session.removeAttribute("cartGoods");
 		return mapping.findForward("Cart");
 	}
 	
-	private static void clearCartGoods(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.removeAttribute("cartGoods");
-	}
-	
+
 }
