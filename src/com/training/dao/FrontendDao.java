@@ -57,9 +57,9 @@ public class FrontendDao {
 	public List<Goods> searchGoods(String searchKeyword) {
 		List<Goods> goods = new ArrayList<>();
 //		Set<Goods> goods = new LinkedHashSet<>();
-		String sql = "SELECT * FROM BEVERAGE_GOODS ";
+		String sql = "SELECT * FROM BEVERAGE_GOODS WHERE STATUS = 1";
 		if(""!=searchKeyword){
-			sql+=" WHERE LOWER(GOODS_NAME) LIKE ?";
+			sql+=" AND LOWER(GOODS_NAME) LIKE ?";
 		}
 				
 		try(Connection conn = DBConnectionFactory.getOracleDBConnection();

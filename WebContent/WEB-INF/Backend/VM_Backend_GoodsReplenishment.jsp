@@ -6,9 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>販賣機-後臺 商品維護</title>
-	
-	<script src="${JS_PATH}/jquery-1.11.1.min.js"></script>
+	<title>販賣機-後臺 商品維護</title>
+	<link type="text/css" rel="stylesheet"
+		href="${CSS_PATH}/bootstrap.min.css" />
+	<script src="${JS_PATH}/jquery-3.2.1.min.js"></script>
+	<script src="${JS_PATH}/popper.min.js"></script>
+	<script src="${JS_PATH}/bootstrap.min.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		
@@ -33,19 +36,6 @@
 				$("#idPrice").val("");
 				$("#idStatus").val('0').change();
 			}
-
-// 			  error: function(error) { // 請求發生錯誤時執行函式
-// 			  	alert("Ajax Error!");
-// 			  }
-// 			});
-// 		}else{
-// 		  	$("#accountName").val('');
-// 		  	$("#accountPwd").val('');
-// 		  	$("#balanceDiv").empty();
-// 		}
-		//
-			
-			
 		});
 	});
 	
@@ -53,43 +43,51 @@
 	</script>
 </head>
 <body>
-	<%@ include file="VM_Backend_Navigation.jsp" %>
-
-	<h2>商品維護作業</h2><br/>
-	<div style="color: blue; font-weight: bold; height: 15px;">${updateMsg}</div>
-	<%session.removeAttribute("updateMsg"); %>
-	<div  style="margin-left:25px;">
-	<form name="updateGoodsForm" action="BackendAction.do" method="post">
-		<input type="hidden" name="action" value="updateGoods"/>
-		<p>
-			飲料名稱：
-			 <select size="1" name="goodsID" id="selectGoods">
-				<option value="">----請選擇----</option>
-				<c:forEach items="${allGoods}" var="goods">
-					<option value="${goods.goodsID}" <c:if test="${selectedGoods.goodsID eq goods.goodsID}">selected</c:if>>
-						${goods.goodsName}</option>
-				</c:forEach>
-			</select>
-		</p>		
-		<p>
-			更改價格： 
-			<input type="number" id="idPrice" name="goodsPrice" size="5"  min="0">
-		</p>
-		<p>
-			補貨數量：
-			<input type="number" id="idReplenish" name="goodsQuantity" size="5" value="0" min="0" max="1000">
-		</p>
-		<p>
-			商品狀態：
-			<select id="idStatus" name="status">
-				<option value="1" >上架</option>
-				<option value="0" >下架</option>				
-			</select>
-		</p>
-		<p>
-			<input type="submit" value="送出">
-		</p>
-	</form>
+	<div class="container">
+		<c:set var="currentPage" value="repl"/>
+		<%@ include file="VM_Backend_Navigation.jsp" %>
+		<div class="row">
+			<div class="col my-4"><h2>商品維護</h2></div>
+		</div>
+		<div class="row">
+			<div class="col my-2" style="color: blue; font-weight: bold;">${updateMsg}</div>
+			<%session.removeAttribute("updateMsg"); %>
+		</div>
+		<div class="row">
+			<div class="col-4 my-3">
+			<form name="updateGoodsForm" action="BackendAction.do" method="post">
+				<input type="hidden" name="action" value="updateGoods"/>
+				<p>
+					飲料名稱：
+					 <select class="form-control" size="1" name="goodsID" id="selectGoods">
+						<option value="">----請選擇----</option>
+						<c:forEach items="${allGoods}" var="goods">
+							<option value="${goods.goodsID}" <c:if test="${selectedGoods.goodsID eq goods.goodsID}">selected</c:if>>
+								${goods.goodsName}</option>
+						</c:forEach>
+					</select>
+				</p>		
+				<p>
+					更改價格： 
+					<input type="number" class="form-control" id="idPrice" name="goodsPrice" size="5"  min="0">
+				</p>
+				<p>
+					補貨數量：
+					<input type="number" class="form-control" id="idReplenish" name="goodsQuantity" size="5" value="0" min="0" max="1000">
+				</p>
+				<p>
+					商品狀態：
+					<select class="form-control" id="idStatus" name="status">
+						<option value="1" >上架</option>
+						<option value="0" >下架</option>				
+					</select>
+				</p>
+				<p>
+					<input class="btn btn-outline-secondary float-right" type="submit" value="送出">
+				</p>
+			</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
