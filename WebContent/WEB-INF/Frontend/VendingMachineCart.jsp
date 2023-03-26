@@ -56,7 +56,19 @@
 			})
 		}
 	}
+	
+<%	
+	if(null!=request.getParameter("pageNo")){
+		pageContext.setAttribute("pageNo", request.getParameter("pageNo"));	
+	}else{
+		pageContext.setAttribute("pageNo",1);
+	}
+	if(null!=request.getParameter("searchKeyword")){
+		pageContext.setAttribute("searchKeyword", request.getParameter("searchKeyword"));	
+	}
 
+	int index =0;
+%>
 </script>
 </head>
 <body>
@@ -70,7 +82,7 @@
 				<form action="FrontendAction.do" method="get">
 					<input type="hidden" name="action" value="searchGoods"/>
 					<input type="hidden" name="pageNo" value="1"/>
-					<input type="text" name="searchKeyword"/>
+					<input type="text" name="searchKeyword" value="${searchKeyword}"/>
 					<input class="btn btn-primary" type="submit" value="商品查詢"/>
 				</form>
 			</div>
@@ -84,18 +96,7 @@
 					購物車(<span id="showSize">0</span>)
 				</a>
 			</div>
-		<%	
-			if(null!=request.getParameter("pageNo")){
-				pageContext.setAttribute("pageNo", request.getParameter("pageNo"));	
-			}else{
-				pageContext.setAttribute("pageNo",1);
-			}
-			if(null!=request.getParameter("searchKeyword")){
-				pageContext.setAttribute("searchKeyword", request.getParameter("searchKeyword"));	
-			}
 		
-			int index =0;
-		%>
 			<div class="col">
 				<c:forEach items="${resultTable}" var="row">
 				<div class="card-deck">
