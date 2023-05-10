@@ -102,19 +102,22 @@
 				<div class="card-deck">
 					<c:forEach items="${row}" var="goods">
 					<div class="card text-center" style="width: 18rem;">
-						<img class="card-img-top" src="DrinksImage/${goods.goodsImageName}">
-						<div class="card-body">
-							<h5 class="card-title">${goods.goodsName}</h5>
-							<p class="card-text" style="color: grey;">
-								${goods.goodsPrice} 元/罐
-							</p>
-							<input type="hidden" name="goodsID" value="${goods.goodsID}">
-							購買<input type="number" name="buyQuantity" min="0" max="${goods.goodsQuantity}" size="5" value="0">罐
-							<p class="card-text" <c:if test="${goods.goodsQuantity eq 0}">style="color: red;" 
-									</c:if>>(庫存 ${goods.goodsQuantity} 罐)
-							</p>
-							<button class="btn btn-outline-primary" onclick="addCartGoods(${goods.goodsID},<%=index++%>)" >加入購物車</button>
-						</div>
+						<c:if test="${goods.goodsName ne null}">
+						
+							<img class="card-img-top" src="DrinksImage/${goods.goodsImageName}">
+							<div class="card-body">
+								<h5 class="card-title">${goods.goodsName}</h5>
+								<p class="card-text" style="color: grey;">
+									${goods.goodsPrice} 元/罐
+								</p>
+								<input type="hidden" name="goodsID" value="${goods.goodsID}">
+								購買<input type="number" name="buyQuantity" min="0" max="${goods.goodsQuantity}" size="5" value="0">罐
+								<p class="card-text" <c:if test="${goods.goodsQuantity eq 0}">style="color: red;" 
+										</c:if>>(庫存 ${goods.goodsQuantity} 罐)
+								</p>
+								<button class="btn btn-outline-primary" onclick="addCartGoods(${goods.goodsID},<%=index++%>)" >加入購物車</button>
+							</div>
+						</c:if>
 					</div>		
 					</c:forEach>
 				</div>

@@ -275,7 +275,8 @@ public class BackendDao {
 		String sql = "SELECT ORDER_ID, TO_CHAR(ORDER_DATE, 'YYYY/mm/DD') DT, CUSTOMER_NAME, GOODS_NAME, GOODS_BUY_PRICE, BUY_QUANTITY "
 				+ " FROM BEVERAGE_ORDER OD LEFT JOIN BEVERAGE_MEMBER MB ON OD.CUSTOMER_ID = MB.IDENTIFICATION_NO"
 				+ " LEFT JOIN BEVERAGE_GOODS GD ON OD.GOODS_ID = GD.GOODS_ID"
-				+ " WHERE TRUNC(ORDER_DATE) BETWEEN TO_DATE(?, 'YYYY-mm-DD') AND TO_DATE(?, 'YYYY-mm-DD')";
+				+ " WHERE TRUNC(ORDER_DATE) BETWEEN TO_DATE(?, 'YYYY-mm-DD') AND TO_DATE(?, 'YYYY-mm-DD')"
+				+ " ORDER BY ORDER_DATE DESC";
 		
 		try(Connection conn = DBConnectionFactory.getOracleDBConnection();
 				PreparedStatement prst = conn.prepareStatement(sql)){

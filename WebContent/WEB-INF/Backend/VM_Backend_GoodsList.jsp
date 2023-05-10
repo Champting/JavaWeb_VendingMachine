@@ -48,11 +48,11 @@
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-3">
-					<label for="formOrder">價格排序</label>
+					<label for="formOrder">排序</label>
 					<select class="form-control" id="formOrder" name="orderByPrice">
-						<option value="ID"  >無</option>
-						<option value="ASC"  <c:if test="${SearchCondition.orderByPrice eq 'ASC'}"> selected</c:if>> 由低到高</option>
-						<option value="DESC" <c:if test="${SearchCondition.orderByPrice eq 'DESC'}"> selected</c:if>>由高到低</option>
+						<option value="ID"  >商品編號</option>
+						<option value="ASC"  <c:if test="${SearchCondition.orderByPrice eq 'ASC'}"> selected</c:if>> 價格由低到高</option>
+						<option value="DESC" <c:if test="${SearchCondition.orderByPrice eq 'DESC'}"> selected</c:if>>價格由高到低</option>
 					</select>
 				</div>
 				<div class="form-group col-md-3">

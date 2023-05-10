@@ -29,11 +29,13 @@
 					data: passObj,
 					success: function(goodsInfo){
 						$("#idPrice").val(goodsInfo.goodsPrice);
+						$("#idQuantity").html(goodsInfo.goodsQuantity);
 						$("#idStatus").val(goodsInfo.status).change();
 					}
 				});
 			}else{
 				$("#idPrice").val("");
+				$("#idQuantity").html('0');
 				$("#idStatus").val('0').change();
 			}
 		});
@@ -70,6 +72,12 @@
 				<p>
 					更改價格： 
 					<input type="number" class="form-control" id="idPrice" name="goodsPrice" size="5"  min="0">
+				</p>
+				<p>
+					剩餘庫存： 
+					<div id="idQuantity">
+					0
+					</div>
 				</p>
 				<p>
 					補貨數量：

@@ -64,7 +64,9 @@ public class FrontendAction extends DispatchAction{
 				if(count < goodsInPage.size()){
 					goodsTable.get(i).add(goodsInPage.get(count++));
 				}else{
-					break;
+					goodsTable.get(i).add(new Goods());
+					//加上一些空的，維持版面用
+					//break;
 				}
 			}
 		}
