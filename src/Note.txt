@@ -40,18 +40,18 @@ Servlet 改為 Struts DispatchAction
 http://localhost:8085/JavaEE_Session4_Homework/VendingMachine.html
 
 ● server.xml 設置
-<Context docBase="JavaEE_Session4_Homework" path="/JavaEE_Session4_Homework" reloadable="true" source="org.eclipse.jst.jee.server:JavaEE_Session4_Homework">
-   <Resource
-     auth="Container" 
-   	 name="jdbc/oracle"
-   	 type="javax.sql.DataSource"
-	 driverClassName="oracle.jdbc.OracleDriver"
-	 url="jdbc:oracle:thin:@localhost:1521:xe"
-	 username="LOCAL"
-	 password="root"
-	 maxTotal="20" 
-	 maxActive="20"
-	 maxIdle="10"
-	 maxWaitMillis="-1"
-   />
+<Context docBase="JavaWeb_VendingMachine" path="/JavaWeb_VendingMachine" reloadable="true" source="org.eclipse.jst.jee.server:JavaWeb_VendingMachine">
+	<Resource
+		auth="Container" 
+ 		name="jdbc/oracle"
+		type="javax.sql.DataSource"
+		driverClassName="oracle.jdbc.OracleDriver"
+		url="jdbc:oracle:thin:@localhost:1521:xe"
+		username="LOCAL"
+		password="root"
+		maxTotal="20" 
+		maxActive="20"
+		maxIdle="10"
+		maxWaitMillis="-1"
+	/>
 </Context>
